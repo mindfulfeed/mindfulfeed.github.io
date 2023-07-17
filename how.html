@@ -5,10 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mindfulfeed</title>
   <style>
+    @font-face {
+      font-family: 'LufgaRegular';
+      src: url('LufgaRegular.ttf') format('truetype');
+      /* Add more font properties if needed */
+    }
+    @font-face {
+      font-family: 'Poppins-ExtraBold';
+      src: url('Poppins-ExtraBold.ttf') format('truetype');
+      /* Add more font properties if needed */
+    }
+    
+
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'LufgaRegular', 'Poppins-ExtraBold', Arial, sans-serif;
       background-color: black;
     }
 
@@ -36,6 +48,7 @@
       box-sizing: border-box;
       opacity: 0;
       animation: fadeAnimation 1s ease-in-out 0s forwards;
+      font-family : 'Poppins-ExtraBold';
     }
 
     .text {
@@ -99,6 +112,7 @@
       box-sizing: border-box;
       opacity: 0;
       animation: fadeAnimation 1.5s ease-in-out 0.5s forwards;
+      font-family : LufgaRegular;
     }
     .cta-button {
       position: fixed;
@@ -171,10 +185,10 @@
     }
   </style>
 </head>
-<body>
+<body onload="updateURL()">
   <div class="container">
     <div class="rounded-rectangle">
-      <span class="text">HOW?</span>
+      <span class="text">HOW ?</span>
     </div>
     <div class="rectangle" style="background-color: #000; font-size: 20px;">
       <p id="typing-text"></p>
@@ -284,6 +298,15 @@
     const text = "At MindfulFeed, we provide you with a transformative system that guides you in shifting your <social media consumption> habits towards a mindful and intentional approach.";
     let index = 0;
     let isInTag = 0; // Track whether the current character is inside an HTML tag
+
+    function updateURL() {
+      const url = window.location.href;
+      if (url.includes('/why.html')) {
+        history.pushState(null, null, '/why.html');
+      } else {
+        history.pushState(null, null, '/');
+      }
+    }
 
     function typeWriter() {
       if (index < text.length) {
