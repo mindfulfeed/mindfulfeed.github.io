@@ -5,12 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mindfulfeed</title>
   <style>
+    @font-face {
+      font-family: 'LufgaRegular';
+      src: url('LufgaRegular.ttf') format('truetype');
+      /* Add more font properties if needed */
+    }
+    @font-face {
+      font-family: 'Poppins-ExtraBold';
+      src: url('Poppins-ExtraBold.ttf') format('truetype');
+      /* Add more font properties if needed */
+    }
+    
+
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'LufgaRegular', 'Poppins-ExtraBold', Arial, sans-serif;
       background-color: black;
     }
+    
 
     .container {
       display: flex;
@@ -36,13 +49,14 @@
       box-sizing: border-box;
       opacity: 0;
       animation: fadeAnimation 1s ease-in-out 0s forwards;
+    font-family : 'Poppins-ExtraBold';
     }
 
     .text {
       font-size: 70px;
       font-weight: bold;
       padding: 0 10px;
-      font-family: 'Poppins';
+      font-family: 'Poppins-ExtraBold';
     }
     
     .arrow-button {
@@ -101,6 +115,7 @@
       box-sizing: border-box;
       opacity: 0;
       animation: fadeAnimation 1.5s ease-in-out 0.5s forwards;
+      font-family : 'LufgaRegular';
     }
     /* Responsive adjustments */
     @media only screen and (max-width: 600px) {
@@ -272,7 +287,7 @@
     function updateURL() {
       const url = window.location.href;
       if (url.includes('/why.html')) {
-        history.pushState(null, null, '/why.html');
+        history.pushState(null, null, '/how.html');
       } else {
         history.pushState(null, null, '/');
       }
