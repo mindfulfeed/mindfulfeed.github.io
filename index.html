@@ -95,9 +95,10 @@
       .center-image {
         max-width: 100%;
         max-height: 60%;
+        margin-bottom: 20%;
       }
       .logo-image {
-      bottom: 10%;
+      bottom: 17%;
       }
       .arrow-button.left {
     background-image: none;
@@ -129,7 +130,7 @@
   }
 
   .arrow-button:hover::before {
-    transform: rotate(90deg);
+    transform: rotate(45deg);
   }
     }
 
@@ -137,7 +138,7 @@
 
   </style>
 </head>
-<body>
+<body onload="updateURL()">
   <div class="container">
     <img src="t1.png" alt="Mobile Image" class="center-image">
     <img src="logo.svg" alt="Logo Image" class="logo-image">
@@ -231,7 +232,14 @@
     for (let i = 0; i < 20; i++) {
       particles.push(createParticle());
     }
-
+    function updateURL() {
+      const url = window.location.href;
+      if (url.includes('/why.html')) {
+        history.pushState(null, null, '/why.html');
+      } else {
+        history.pushState(null, null, '/');
+      }
+    }
     // Function to update the canvas size on window resize
     function updateCanvasSize() {
       canvas.width = window.innerWidth;
