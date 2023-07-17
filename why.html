@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mindfulfeed</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: black;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+    }
+
+    .rounded-rectangle {
+      width: 100%;
+      max-width: 475px;
+      height: calc((475px * 158px) / 405px);
+      margin-bottom: 15px;
+      margin-top: 10px;
+      background-color: #FE0050;
+      color: #fff;
+      padding: 50px 35px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      opacity: 0;
+      animation: fadeAnimation 1s ease-in-out 0s forwards;
+    }
+
+    .text {
+      font-size: 70px;
+      font-weight: bold;
+      padding: 0 10px;
+      font-family: 'Poppins';
+    }
+    
+    .arrow-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('zen.svg'); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.arrow-button:hover {
+  transform: scale(1.2); /* Adjust the scale factor as desired */
+}
+
+.arrow-button.left {
+  right: auto;
+  left: 20px;
+  background-image: url('zen.svg'); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.3s ease;
+  transform: scaleX(-1); /* Flip the arrow horizontally */
+}
+
+.arrow-button.left:hover {
+  transform: scaleX(-1) scale(1.2); /* Flip and zoom the arrow */
+}
+
+
+
+
+    .rectangle {
+      width: 100%;
+      max-width: 475px;
+      height: calc((475px * 207px) / 405px);
+      margin-bottom: 15px;
+      background-color: #FE0050;
+      color: #000;
+      padding: 10px;
+      color: #fff;
+      border-radius: 20px;
+      text-align: center;
+      box-sizing: border-box;
+      opacity: 0;
+      animation: fadeAnimation 1.5s ease-in-out 0.5s forwards;
+    }
+    /* Responsive adjustments */
+    @media only screen and (max-width: 600px) {
+      .rounded-rectangle,
+      .rectangle {
+        max-width: 100%;
+      }
+      .arrow-button.left {
+    background-image: none;
+  }
+
+  .arrow-button.left::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    transform: rotate(45deg);
+  }
+
+  .arrow-button.left:hover::before {
+    transform: rotate(45deg);
+  }
+      .arrow-button {
+    background-image: none;
+  }
+
+  .arrow-button::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    transform: rotate(45deg);
+  }
+
+  .arrow-button:hover::before {
+    transform: rotate(90deg);
+  }
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    @keyframes fadeAnimation {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body onload="updateURL()">
+  <div class="container">
+    <div class="rounded-rectangle">
+      <span class="text">WHY?</span>
+    </div>
+    <div class="rectangle" style="background-color: #000; font-size: 20px;">
+      <p id="typing-text"></p>
+    </div>
+    <div class="rectangle" style="flex-grow: 1;"></div>
+  </div>
+
+  <canvas id="background-canvas"></canvas>
+  <button class="arrow-button right" onclick="location.href='how.html'"></button>
+  <button class="arrow-button left" onclick="location.href='index.html'"></button>
+  <script>
+    // Function to generate a random number within a range
+    function getRandomNumber(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    // Function to generate a random color
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      const colors = ['#00AAFF', '#FF9300', '#AD54FF', '#FE0050'];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+      const transparency = 0.2; // Random value between 0 and 1
+      const transparentColor = randomColor + Math.floor(transparency * 255).toString(16);
+      return transparentColor;
+    }
+
+    // Create the canvas element and set its size
+    const canvas = document.getElementById('background-canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Create an array to store the particles
+    const particles = [];
+
+    // Function to create a particle object
+    function createParticle() {
+      const x = getRandomNumber(0, canvas.width);
+      const y = getRandomNumber(0, canvas.height);
+      const radius = getRandomNumber(20, 50);
+      const color = getRandomColor();
+      const speedX = getRandomNumber(-1, 1) * (canvas.width / 500); // Adjust speed based on canvas width
+      const speedY = getRandomNumber(-2, 2) * (canvas.height / 500); // Adjust speed based on canvas height
+
+      return {
+        x,
+        y,
+        radius,
+        color,
+        speedX,
+        speedY,
+      };
+    }
+
+    // Function to update and draw the particles
+    function updateParticles() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle) => {
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        context.beginPath();
+        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        context.fillStyle = particle.color;
+        context.fill();
+        context.closePath();
+
+        if (
+          particle.x < 0 ||
+          particle.x > canvas.width ||
+          particle.y < 0 ||
+          particle.y > canvas.height
+        ) {
+          particle.x = getRandomNumber(0, canvas.width);
+          particle.y = getRandomNumber(0, canvas.height);
+        }
+      });
+
+      requestAnimationFrame(updateParticles);
+    }
+
+    // Create initial particles
+    for (let i = 0; i < 20; i++) {
+      particles.push(createParticle());
+    }
+
+    // Function to update the canvas size on window resize
+    function updateCanvasSize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    // Update the canvas size initially and on window resize
+    updateCanvasSize();
+    window.addEventListener('resize', updateCanvasSize);
+
+    // Start the animation
+    updateParticles();
+
+    // Typewriter animation for the text
+    const textElement = document.getElementById('typing-text');
+    const text = "We believe in taking <control of our actions> and <being mindful> to cultivate a purposeful and fulfilling life. In a world full of distractions, we empower individuals to prioritize mindfulness, unlock their true potential and live with intention. ";
+    let index = 0;
+    let isInTag = 0; // Track whether the current character is inside an HTML tag
+
+    function updateURL() {
+      const url = window.location.href;
+      if (url.includes('/why.html')) {
+        history.pushState(null, null, '/why.html');
+      } else {
+        history.pushState(null, null, '/');
+      }
+    }
+
+    function typeWriter() {
+      if (index < text.length) {
+        const currentChar = text.charAt(index);
+        if (currentChar === "<") {
+          isInTag = 1;
+        }
+        else if (isInTag === 1) {
+          isInTag = 2;
+        }
+        else if (currentChar === ">") {
+          isInTag = 3;
+        }
+        else if (isInTag === 3) {
+          isInTag = 0;
+        }
+
+        if (isInTag === 0) {
+          textElement.innerHTML += currentChar;
+        } else if (isInTag === 2) {
+          textElement.innerHTML += `<span style='color: ${currentChar === "#" ? "" : "#FE0050"};'>${currentChar}</span>`;
+        }
+
+        index++;
+        setTimeout(typeWriter, 35); // Adjust typing speed here (milliseconds)
+      }
+    }
+
+    // Start the typewriter animation after a delay
+    setTimeout(typeWriter, 1000); // Adjust delay before typing starts (milliseconds)
+  </script>
+</body>
+</html>
