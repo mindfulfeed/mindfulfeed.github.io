@@ -48,7 +48,7 @@
       box-sizing: border-box;
       opacity: 0;
       animation: fadeAnimation 1s ease-in-out 0s forwards;
-      font-family : 'Poppins-ExtraBold';
+      font-family: 'Poppins-ExtraBold';
     }
 
     .text {
@@ -58,45 +58,43 @@
       font-family: 'Poppins-ExtraBold';
     }
     .arrow-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 10;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url('zen.svg'); /* Replace 'arrow.png' with the path to your image */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: transform 0.3s ease;
-}
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('zen.svg'); /* Replace 'arrow.png' with the path to your image */
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 0.3s ease;
+    }
 
-.arrow-button:hover {
-  transform: scale(1.2); /* Adjust the scale factor as desired */
-}
+    .arrow-button:hover {
+      transform: scale(1.2); /* Adjust the scale factor as desired */
+    }
 
-.arrow-button.left {
-  right: auto;
-  left: 20px;
-  background-image: url('zen.svg'); /* Replace 'arrow.png' with the path to your image */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: transform 0.3s ease;
-  transform: scaleX(-1); /* Flip the arrow horizontally */
-}
+    .arrow-button.left {
+      right: auto;
+      left: 20px;
+      background-image: url('zen.svg'); /* Replace 'arrow.png' with the path to your image */
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 0.3s ease;
+      transform: scaleX(-1); /* Flip the arrow horizontally */
+    }
 
-.arrow-button.left:hover {
-  transform: scaleX(-1) scale(1.2); /* Flip and zoom the arrow */
-}
-
-
+    .arrow-button.left:hover {
+      transform: scaleX(-1) scale(1.2); /* Flip and zoom the arrow */
+    }
 
     .rectangle {
       width: 100%;
@@ -112,7 +110,7 @@
       box-sizing: border-box;
       opacity: 0;
       animation: fadeAnimation 1.5s ease-in-out 0.5s forwards;
-      font-family : LufgaRegular;
+      font-family: 'LufgaRegular';
     }
     .cta-button {
       position: fixed;
@@ -139,37 +137,37 @@
         max-width: 100%;
       }
       .arrow-button.left {
-    background-image: none;
-  }
+        background-image: none;
+      }
 
-  .arrow-button.left::before {
-    content: '';
-    width: 20px;
-    height: 20px;
-    border-top: 2px solid white;
-    border-right: 2px solid white;
-    transform: rotate(45deg);
-  }
+      .arrow-button.left::before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        border-top: 2px solid white;
+        border-right: 2px solid white;
+        transform: rotate(45deg);
+      }
 
-  .arrow-button.left:hover::before {
-    transform: rotate(45deg);
-  }
+      .arrow-button.left:hover::before {
+        transform: rotate(45deg);
+      }
       .arrow-button {
-    background-image: none;
-  }
+        background-image: none;
+      }
 
-  .arrow-button::before {
-    content: '';
-    width: 20px;
-    height: 20px;
-    border-top: 2px solid white;
-    border-right: 2px solid white;
-    transform: rotate(45deg);
-  }
+      .arrow-button::before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        border-top: 2px solid white;
+        border-right: 2px solid white;
+        transform: rotate(45deg);
+      }
 
-  .arrow-button:hover::before {
-    transform: rotate(90deg);
-  }
+      .arrow-button:hover::before {
+        transform: rotate(90deg);
+      }
     }
 
     canvas {
@@ -182,6 +180,44 @@
     @keyframes fadeAnimation {
       0% { opacity: 0; }
       100% { opacity: 1; }
+    }
+    
+    #add-to-home-screen-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+    }
+
+    #add-to-home-screen-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #add-to-home-screen-content p {
+      margin-bottom: 10px;
+    }
+
+    #add-to-home-screen-button {
+      padding: 10px 20px;
+      background-color: #00AAFF;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #add-to-home-screen-button:hover {
+      background-color: #AD54FF;
     }
   </style>
 </head>
@@ -199,6 +235,15 @@
   <canvas id="background-canvas"></canvas>
   <a href="https://www.linkedin.com/company/mindfulfeed/" class="cta-button" target="_blank">Join us</a>
   <button class="arrow-button left" onclick="location.href='why.html'"></button>
+  
+  <!-- Add the popup HTML -->
+  <div id="add-to-home-screen-popup" style="display: none;">
+    <div id="add-to-home-screen-content">
+      <p>Install this website on your device's home screen for quick and easy access.</p>
+      <button id="add-to-home-screen-button">Add to Home Screen</button>
+    </div>
+  </div>
+  
   <script>
     // Function to generate a random number within a range
     function getRandomNumber(min, max) {
@@ -337,6 +382,22 @@
 
     // Start the typewriter animation after a delay
     setTimeout(typeWriter, 1000); // Adjust delay before typing starts (milliseconds)
+    
+    // Check if the current browser supports the "beforeinstallprompt" event
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault(); // Prevent the default prompt from showing
+      
+      // Show the custom "Add to Home Screen" popup
+      const popup = document.getElementById('add-to-home-screen-popup');
+      popup.style.display = 'flex';
+      
+      // Handle the user's response
+      const addToHomeScreenButton = document.getElementById('add-to-home-screen-button');
+      addToHomeScreenButton.addEventListener('click', () => {
+        popup.style.display = 'none'; // Hide the popup
+        event.prompt(); // Show the native install prompt
+      });
+    });
   </script>
 </body>
 </html>
